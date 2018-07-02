@@ -23,10 +23,13 @@ def _on_service_state_change(zeroconf, service_type, name, state_change):
             glusterd_hosts.append(socket.inet_ntoa(info.address))
 
 
-def discover_hosts(timeout=5):
+def discover_hosts(timeout=5, interfaces=None):
     """ Find hosts that announce themselves with _glusterd._tcp.local.
     """
-    zeroconf = Zeroconf()
+    if interfaces:
+        zeroconf = Zeroconf(interfaces=interfaces)
+    else:
+        zeroconf = Zeroconf()
     browser = ServiceBrowser(zeroconf, '_glusterd._tcp.local.',
                              handlers=[_on_service_state_change])
 
