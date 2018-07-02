@@ -10,10 +10,8 @@ def check_ipv4_address(ips):
     IPv4 addresses
     """
     ipv4 = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
-    for ip in ips:
-        if not ipv4.match(ip):
-            return False
-        return True
+    tmp = [ipv4.match(x) for x in ips]
+    return all(tmp)
 
 
 def main():
