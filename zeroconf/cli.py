@@ -30,9 +30,10 @@ def main():
     except:
         return os.EX_USAGE
 
-    if not check_ipv4_address(args.interfaces):
-        print("IP address not valid")
-        return os.EX_USAGE
+    if args.interfaces:
+        if not check_ipv4_address(args.interfaces):
+            print("IP address not valid")
+            return os.EX_USAGE
 
     hosts = discover_hosts(timeout=args.timeout, interfaces=args.interfaces)
     for host in hosts:
